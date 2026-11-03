@@ -1,0 +1,34 @@
+openapi: 3.1.0
+info:
+  title: Shield Fraud Scoring
+  version: 0.1.0
+  description: Synthetic callable fixture; no HTTP adapter is deployed.
+paths:
+  /fraud/score:
+    post:
+      operationId: score
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [policy_id, requested_cents]
+              properties:
+                policy_id: {type: string, minLength: 1}
+                requested_cents: {type: integer, minimum: 1}
+      responses:
+        "200":
+          description: Synthetic risk score, with 80 or more requiring manual review.
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [policy_id, score]
+                properties:
+                  policy_id: {type: string, minLength: 1}
+                  score: {type: integer, minimum: 0, maximum: 100}
+        "400":
+          description: Invalid requested amount.
+        "404":
+          description: Policy risk record not found.
