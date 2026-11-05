@@ -21,10 +21,17 @@ not client approval of production database sharing.
 Run `python scripts/verify_fixture.py --repos-root ..` from the sibling context
 checkout to check the provider migration, canonical schema, and consumer link
 without fetching remote schemas. Coordinate contract changes with Policy platform.
-Keep a full intent package in its primary owning app repo and only linked
-component-specific requirement slices in other repos; none are generated here.
+## Specification consumer
 
-Shared context: `amithp-ust/shield-context` (`AGENTS.md`, glossary, scope,
-standards, and component map). `specs/` is reserved for spec pull requests.
-Python 3.12+, standard library only. Run `python -m unittest discover -s tests`.
+Canonical specs, authoring, gates, and requirement metrics live only in
+[`amithp-ust/Intent-to-spec`](https://github.com/amithp-ust/Intent-to-spec).
+Shared glossary, map, standards, and policy remain in
+[`amithp-ust/shield-context`](https://github.com/amithp-ust/shield-context).
+This repo owns `CM-FRAUD` implementation, not spec authoring. See
+[AGENTS.md](AGENTS.md) for immutable approved spec references, issue/PR traceability,
+human review, and fixture-contract checks. Do not install authoring here or copy
+specs; empty `specs/.gitkeep` is a legacy placeholder.
+
+Python 3.11+, standard library only. Run `python -m unittest discover -s tests`
+from this repository root; the unit-test CI runs the same command on Python 3.11.
 This callable fixture is not a production fraud model or an HTTP server.
