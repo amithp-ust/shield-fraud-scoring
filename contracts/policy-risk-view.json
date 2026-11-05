@@ -1,0 +1,5 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$ref": "https://raw.githubusercontent.com/amithp-ust/shield-policy-service/main/contracts/shared/policy-risk-view.json",
+  "description": "CM-FRAUD consumes the CM-POLICY-owned policy_risk_view via policy_database. Canonical schema, migration evidence, access direction, and evolution rules live in shield-policy-service/contracts/shared/policy-risk-view.json. Sibling fixture validation resolves this link locally, without network access."
+}

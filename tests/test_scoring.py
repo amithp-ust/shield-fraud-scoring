@@ -28,6 +28,20 @@ class ScoringTests(unittest.TestCase):
         with self.assertRaises(LookupError):
             self.scoring.score("unknown", 1000)
 
+    def test_reads_shared_policy_view(self):
+        queries = []
+        self.connection.set_trace_callback(queries.append)
+        self.scoring.score("P-1", 50000)
+        self.assertTrue(any(
+            "SELECT coverage_cents, deductible_cents, status FROM policy_risk_view"
+            in query for query in queries
+        ))
+
+    def test_missing_shared_view(self):
+        self.connection.execute("DROP VIEW policy_risk_view")
+        with self.assertRaisesRegex(sqlite3.OperationalError, "policy_risk_view"):
+            self.scoring.score("P-1", 50000)
+
     def test_invalid_amount(self):
         for amount in (0, -1, 1.5, True):
             with self.subTest(amount=amount):
